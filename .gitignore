@@ -1,0 +1,19 @@
+# 의존성
+node_modules/
+
+# 환경 변수 (토큰 등 절대 커밋 금지)
+.env
+.env.local
+.env.*.local
+
+# 로그 / OS
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE / 기타
+.idea/
+.vscode/
+*.swp
+*.swo
+.github/

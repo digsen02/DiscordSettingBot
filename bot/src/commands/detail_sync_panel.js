@@ -1,11 +1,51 @@
-import { EmbedBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder, PermissionFlagsBits } from "discord.js";
 
 export const data = new SlashCommandBuilder()
     .setName("detail_sync_panel")
     .setDescription("세부 동기화를 컨트롤 할 수 있는 패널을 킵니다.")
 
 export async function execute(interaction){
-    const row = new ActionRowBuilder().addComponents(
+    const ok = interaction.member.permissions.has([
+        PermissionFlagsBits.Administrator,
+        PermissionFlagsBits.ManageGuild,
+    ]);
+    if (!ok) { await interaction.reply({ content: "관리자 권한이 필요합니다!", ephemeral: true }); return; }
+
+    const GuildSetting = (await import("../../../DB/model/guild_setting_model.js")).default;
+    const guildSettings = await GuildSetting.find({
+        guild_id: interaction.guildId,
+        $or: [
+            { sync_target_guild_id: { $exists: true, $ne: null, $ne: "" } },
+            { sync_source_guild_id: { $exists: true, $ne: null, $ne: "" } }
+        ]
+    });
+
+    const currentGuildId = interaction.guildId;
+    const syncedGuildIds = [...new Set(
+        guildSettings.flatMap(s => [s.sync_target_guild_id, s.sync_source_guild_id].filter(Boolean))
+    )].filter(id => id !== currentGuildId);
+
+    const syncedGuildsOptions = syncedGuildIds.slice(0, 25).map(guildId => {
+        const guild = interaction.client.guilds.cache.get(guildId);
+        return {
+            label: (guild?.name ?? guildId).slice(0, 100),
+            value: guildId
+        };
+    });
+
+
+    const syncedGuildRow = new ActionRowBuilder().addComponents(
+        new StringSelectMenuBuilder()
+            .setCustomId("choise_synced_guild")
+            .setPlaceholder("상세 설정할 서버를 선택하세요.")
+            .addOptions(
+                syncedGuildsOptions.length > 0
+                    ? syncedGuildsOptions
+                    : [{ label: "동기화된 서버 없음", value: "none" }]
+            )
+    );
+
+    const detailSyncRow = new ActionRowBuilder().addComponents(
     new StringSelectMenuBuilder()
         .setCustomId("sync_select")
         .setPlaceholder("항목을 선택하세요")
@@ -24,7 +64,7 @@ export async function execute(interaction){
             .setTitle("🔧 세부 동기화 패널")
             .setDescription("세부 동기화 패널 입니다. 아래 셀렉션에서 골라.")
         ],
-        components: [row]
+        components: [syncedGuildRow, detailSyncRow]
     });
 }
 

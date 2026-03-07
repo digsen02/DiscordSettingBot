@@ -1,6 +1,7 @@
 import sync_category from "../selectmenus/sync_menu/sync_category.js";
+import sync_user from "../selectmenus/sync_menu/sync_user.js";
 
-const map = {sync_category};
+const map = {sync_category, sync_user};
 
 export default async function handleSelectMenu(interaction) {
 
@@ -9,6 +10,5 @@ export default async function handleSelectMenu(interaction) {
 
   const handler = map[action];
     if (!handler) return;
-    console.log(handler);
     await handler(interaction);
 }

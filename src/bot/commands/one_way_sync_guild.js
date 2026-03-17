@@ -8,6 +8,7 @@ import {
 } from "discord.js";
 import * as guildService from "../../services/guildService.js";
 import * as syncConfigService from "../../services/syncConfigService.js";
+import { setSession } from "../../utils/sessionStore.js";
 
 export const data = new SlashCommandBuilder()
     .setName("one_way_sync_guild")
@@ -52,6 +53,8 @@ export async function execute(interaction) {
     const channel = await guild.channels.fetch(sourceGuildSetting.logChannelId);
     if (!channel) { await interaction.reply("대상 서버의 로그 채널을 찾을 수 없습니다! 대상 서버 관리자에게 /init_guild 명령어로 다시 초기화해달라고 요청해주세요."); return; }
 
+    const sessionKey = setSession({ guildId: interaction.guildId, logChannelId: guildSetting.logChannelId });
+
     await channel.send({
         embeds: [
             new EmbedBuilder()
@@ -67,11 +70,11 @@ export async function execute(interaction) {
         components: [
             new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
-                    .setCustomId(`sync_accept:${interaction.guildId}:${guildSetting.logChannelId}`)
+                    .setCustomId(`sync_accept:${sessionKey}`)
                     .setLabel("수락")
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
-                    .setCustomId(`sync_reject:${interaction.guildId}:${guildSetting.logChannelId}`)
+                    .setCustomId(`sync_reject:${sessionKey}`)
                     .setLabel("거절")
                     .setStyle(ButtonStyle.Danger)
             ),

@@ -9,14 +9,10 @@ import sync_channel from "../selectmenus/sync_menu/sync_channel.js";
 const map = { select_guild, sync_guild, sync_role, sync_channel, sync_category, sync_user };
 
 export default async function handleSelectMenu(interaction) {
-    const [action, guildId] = interaction.values[0].split(":");
-    console.log(`셀렉트 메뉴 상호작용 감지: action=${action}, guildId=${guildId}`);
+    const [action, sessionKey] = interaction.values[0].split(":");
+    console.log(`셀렉트 메뉴 상호작용 감지: action=${action}, sessionKey=${sessionKey}`);
 
     const handler = map[action];
     if (!handler) return;
-    if (guildId) {
-        await handler(interaction, guildId);
-        return;
-    }
-    await handler(interaction);
+    await handler(interaction, sessionKey);
 }

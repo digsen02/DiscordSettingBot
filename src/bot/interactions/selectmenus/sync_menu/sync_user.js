@@ -1,7 +1,13 @@
 import { EmbedBuilder } from "discord.js";
 import { ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
 
-export default async function (interaction) {
+export default async function (interaction, sessionKey) {
+    const session = getSession(sessionKey);
+    if (!session) {
+        await interaction.update({ content: "❌ 세션이 만료되었습니다. 명령어를 다시 실행해주세요.", components: [] });
+        return;
+    }
+    const { guildId } = session;
     const members = [...interaction.guild.members.cache
         .filter((member) => !member.user.bot)
         .values()];

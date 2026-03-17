@@ -6,6 +6,7 @@ import {
     PermissionFlagsBits,
 } from "discord.js";
 import * as syncConfigService from "../../services/syncConfigService.js";
+import { setSession } from "../../utils/sessionStore.js";
 
 export const data = new SlashCommandBuilder()
     .setName("detail_sync_panel")
@@ -34,9 +35,10 @@ export async function execute(interaction) {
 
     const syncedGuildsOptions = syncedGuildIds.slice(0, 25).map((guildId) => {
         const guild = interaction.client.guilds.cache.get(guildId);
+        const key = setSession({ guildId });
         return {
             label: (guild?.name ?? guildId).slice(0, 100),
-            value: `select_guild:${guildId}`,
+            value: `select_guild:${key}`,
         };
     });
 

@@ -50,7 +50,7 @@ export async function execute(interaction) {
         channel =
             (sourceLogChannelId && await interaction.client.channels.fetch(sourceLogChannelId).catch(() => null)) ||
             (targetLogChannelId && await interaction.client.channels.fetch(targetLogChannelId).catch(() => null));
-    } catch (_) { /* ignore */ }
+    } catch (_) { }
 
     if (!channel) {
         console.error("❌ 단방향 동기화 해제 대상 서버의 로그 채널 조회 중 오류 발생:");

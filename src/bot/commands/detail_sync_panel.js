@@ -23,7 +23,7 @@ export async function execute(interaction) {
     }
 
     const syncConfigs = await syncConfigService.getSyncedGuilds(interaction.guildId);
-
+    const key = setSession({ guildId: interaction.guildId });
     const currentGuildId = interaction.guildId;
     const syncedGuildIds = [
         ...new Set(
@@ -35,7 +35,6 @@ export async function execute(interaction) {
 
     const syncedGuildsOptions = syncedGuildIds.slice(0, 25).map((guildId) => {
         const guild = interaction.client.guilds.cache.get(guildId);
-        const key = setSession({ guildId });
         return {
             label: (guild?.name ?? guildId).slice(0, 100),
             value: `select_guild:${key}`,
@@ -58,11 +57,11 @@ export async function execute(interaction) {
             .setCustomId("sync_select")
             .setPlaceholder("항목을 선택하세요")
             .addOptions(
-                { label: "유저", value: "sync_user", description: "유저 동기화 관리" },
-                { label: "역할", value: "sync_role", description: "역할 동기화 관리" },
-                { label: "채널", value: "sync_channel", description: "채널 동기화 관리" },
-                { label: "카테고리", value: "sync_category", description: "카테고리 동기화 관리" },
-                { label: "길드 (서버)", value: "sync_guild", description: "길드 (서버) 동기화 관리" }
+                { label: "유저", value: `sync_user:${key}`, description: "유저 동기화 관리" },
+                { label: "역할", value: `sync_role:${key}`, description: "역할 동기화 관리" },
+                { label: "채널", value: `sync_channel:${key}`, description: "채널 동기화 관리" },
+                { label: "카테고리", value: `sync_category:${key}`, description: "카테고리 동기화 관리" },
+                { label: "길드 (서버)", value: `sync_guild:${key}`, description: "길드 (서버) 동기화 관리" }
             )
     );
 

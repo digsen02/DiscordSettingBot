@@ -20,7 +20,7 @@ export default async function (interaction) {
 
     const embed = new EmbedBuilder()
         .setTitle("유저 동기화 관리")
-        .setDescription(`유저 동기화 관리 패널입니다. 아래 셀렉션에서 골라.`);
+        .setDescription(`유저 동기화 관리 패널입니다. 아래 셀렉션에서 고르세요.`);
 
     await interaction.update({
         embeds: [embed],

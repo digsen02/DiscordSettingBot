@@ -36,7 +36,7 @@ export async function execute(interaction) {
         const guild = interaction.client.guilds.cache.get(guildId);
         return {
             label: (guild?.name ?? guildId).slice(0, 100),
-            value: guildId,
+            value: `select_guild:${guildId}`,
         };
     });
 
@@ -68,7 +68,7 @@ export async function execute(interaction) {
         embeds: [
             new EmbedBuilder()
                 .setTitle("🔧 세부 동기화 패널")
-                .setDescription("세부 동기화 패널 입니다. 아래 셀렉션에서 골라."),
+                .setDescription("세부 동기화 패널 입니다. 아래 셀렉션에서 골라주세요."),
         ],
         components: [syncedGuildRow, detailSyncRow],
     });

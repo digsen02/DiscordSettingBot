@@ -1,7 +1,20 @@
 import sync_accept from "../buttons/one_way_sync_yes.js";
 import sync_reject from "../buttons/one_way_sync_no.js";
+import user_sync_toggle_nickname from "../buttons/user_sync_toggle_nickname.js";
+import user_sync_toggle_roles from "../buttons/user_sync_toggle_roles.js";
+import user_sync_save from "../buttons/user_sync_save.js";
+import user_sync_reset from "../buttons/user_sync_reset.js";
+import user_sync_back from "../buttons/user_sync_back.js";
 
-const map = { sync_accept, sync_reject };
+const map = {
+    sync_accept,
+    sync_reject,
+    user_sync_toggle_nickname,
+    user_sync_toggle_roles,
+    user_sync_save,
+    user_sync_reset,
+    user_sync_back,
+};
 
 export default async function handleButton(interaction) {
     const [action, sessionKey] = interaction.customId.split(":");

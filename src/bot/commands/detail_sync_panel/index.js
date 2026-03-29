@@ -5,8 +5,8 @@ import {
     StringSelectMenuBuilder,
     PermissionFlagsBits,
 } from "discord.js";
-import * as syncConfigService from "../../services/syncConfigService.js";
-import { setSession } from "../../utils/sessionStore.js";
+import * as syncConfigService from "../../../services/syncConfigService.js";
+import { setSession } from "../../../utils/sessionStore.js";
 
 export const data = new SlashCommandBuilder()
     .setName("detail_sync_panel")

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChannelType } from "discord.js";
-import * as guildService from "../../services/guildService.js";
+import * as guildService from "../../../services/guildService.js";
 
 export const data = new SlashCommandBuilder()
     .setName("init_guild")

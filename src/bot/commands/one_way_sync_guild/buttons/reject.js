@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import { getSession } from "../../../utils/sessionStore.js";
+import { getSession } from "../../../../utils/sessionStore.js";
 
 export default async function (interaction, sessionKey) {
     const session = getSession(sessionKey);

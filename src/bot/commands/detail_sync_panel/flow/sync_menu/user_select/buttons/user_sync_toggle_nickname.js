@@ -1,9 +1,5 @@
-import { getSession } from "../../../utils/sessionStore.js";
-import { buildUserDetailPayload } from "../selectmenus/sync_menu/sync_user_detail.js";
-
-function toRelativeTimestamp() {
-    return `<t:${Math.floor(Date.now() / 1000)}:R>`;
-}
+import { getSession } from "../../../../utils/sessionStore.js";
+import { buildUserDetailPayload } from "../flow/sync_menu/user_detail.js";
 
 export default async function (interaction, sessionKeyWithUserId) {
     const [sessionKey, userId] = (sessionKeyWithUserId ?? "").split("|");
@@ -17,7 +13,7 @@ export default async function (interaction, sessionKeyWithUserId) {
     if (!session.userDetailSettings[userId]) {
         session.userDetailSettings[userId] = { nickname: false, roles: false, savedAt: null };
     }
-    session.userDetailSettings[userId].savedAt = toRelativeTimestamp();
+    session.userDetailSettings[userId].nickname = !session.userDetailSettings[userId].nickname;
 
     const { guildId } = session;
     const targetGuild = interaction.client.guilds.cache.get(guildId);
@@ -27,4 +23,3 @@ export default async function (interaction, sessionKeyWithUserId) {
         buildUserDetailPayload({ interaction, sessionKey, guildId, targetGuild, userId, settings })
     );
 }
-

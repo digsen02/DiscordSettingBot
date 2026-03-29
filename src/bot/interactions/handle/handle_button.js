@@ -1,10 +1,10 @@
-import sync_accept from "../buttons/one_way_sync_yes.js";
-import sync_reject from "../buttons/one_way_sync_no.js";
-import user_sync_toggle_nickname from "../buttons/user_sync_toggle_nickname.js";
-import user_sync_toggle_roles from "../buttons/user_sync_toggle_roles.js";
-import user_sync_save from "../buttons/user_sync_save.js";
-import user_sync_reset from "../buttons/user_sync_reset.js";
-import user_sync_back from "../buttons/user_sync_back.js";
+import sync_accept from "../../commands/one_way_sync_guild/buttons/accept.js";
+import sync_reject from "../../commands/one_way_sync_guild/buttons/reject.js";
+import user_sync_toggle_nickname from "../../commands/detail_sync_panel/buttons/user_sync_toggle_nickname.js";
+import user_sync_toggle_roles from "../../commands/detail_sync_panel/buttons/user_sync_toggle_roles.js";
+import user_sync_save from "../../commands/detail_sync_panel/buttons/user_sync_save.js";
+import user_sync_reset from "../../commands/detail_sync_panel/buttons/user_sync_reset.js";
+import user_sync_back from "../../commands/detail_sync_panel/buttons/user_sync_back.js";
 
 const map = {
     sync_accept,

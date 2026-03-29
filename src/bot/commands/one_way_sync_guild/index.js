@@ -6,9 +6,9 @@ import {
     PermissionFlagsBits,
     EmbedBuilder,
 } from "discord.js";
-import * as guildService from "../../services/guildService.js";
-import * as syncConfigService from "../../services/syncConfigService.js";
-import { setSession } from "../../utils/sessionStore.js";
+import * as guildService from "../../../services/guildService.js";
+import * as syncConfigService from "../../../services/syncConfigService.js";
+import { setSession } from "../../../utils/sessionStore.js";
 
 export const data = new SlashCommandBuilder()
     .setName("one_way_sync_guild")

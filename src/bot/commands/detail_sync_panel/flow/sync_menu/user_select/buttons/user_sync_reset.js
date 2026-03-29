@@ -1,5 +1,5 @@
-import { getSession } from "../../../utils/sessionStore.js";
-import { buildUserDetailPayload } from "../selectmenus/sync_menu/sync_user_detail.js";
+import { getSession } from "../../../../utils/sessionStore.js";
+import { buildUserDetailPayload } from "../flow/sync_menu/user_detail.js";
 
 export default async function (interaction, sessionKeyWithUserId) {
     const [sessionKey, userId] = (sessionKeyWithUserId ?? "").split("|");
@@ -10,10 +10,7 @@ export default async function (interaction, sessionKeyWithUserId) {
     }
 
     if (!session.userDetailSettings) session.userDetailSettings = {};
-    if (!session.userDetailSettings[userId]) {
-        session.userDetailSettings[userId] = { nickname: false, roles: false, savedAt: null };
-    }
-    session.userDetailSettings[userId].roles = !session.userDetailSettings[userId].roles;
+    session.userDetailSettings[userId] = { nickname: false, roles: false, savedAt: null };
 
     const { guildId } = session;
     const targetGuild = interaction.client.guilds.cache.get(guildId);
@@ -23,4 +20,3 @@ export default async function (interaction, sessionKeyWithUserId) {
         buildUserDetailPayload({ interaction, sessionKey, guildId, targetGuild, userId, settings })
     );
 }
-

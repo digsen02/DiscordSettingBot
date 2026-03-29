@@ -1,10 +1,10 @@
-import select_guild from "../selectmenus/select_sync_guild/select_guild.js";
-import sync_category from "../selectmenus/sync_menu/sync_category.js";
-import sync_user from "../selectmenus/sync_menu/sync_user.js";
-import sync_user_detail from "../selectmenus/sync_menu/sync_user_detail.js";
-import sync_guild from "../selectmenus/sync_menu/sync_guild.js";
-import sync_role from "../selectmenus/sync_menu/sync_role.js";
-import sync_channel from "../selectmenus/sync_menu/sync_channel.js";
+import select_guild from "../../commands/detail_sync_panel/flow/select_guild.js";
+import sync_category from "../../commands/detail_sync_panel/flow/sync_menu/category_select.js";
+import sync_user from "../../commands/detail_sync_panel/flow/sync_menu/user_select.js";
+import sync_user_detail from "../../commands/detail_sync_panel/flow/sync_menu/user_detail.js";
+import sync_guild from "../../commands/detail_sync_panel/flow/sync_menu/guild_view.js";
+import sync_role from "../../commands/detail_sync_panel/flow/sync_menu/role_select.js";
+import sync_channel from "../../commands/detail_sync_panel/flow/sync_menu/channel_select.js";
 
 const map = { select_guild, sync_guild, sync_role, sync_channel, sync_category, sync_user, sync_user_detail };
 

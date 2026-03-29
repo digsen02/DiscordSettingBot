@@ -15,9 +15,24 @@ const client = createClient();
 
 /* 커맨드 로드 */
 const commandsPath = path.join(__dirname, "bot", "commands");
-for (const file of fs.readdirSync(commandsPath)) {
-    if (!file.endsWith(".js")) continue;
-    const command = await import(pathToFileURL(path.join(commandsPath, file)).href);
+
+function* iterCommandFiles(basePath) {
+    const entries = fs.readdirSync(basePath, { withFileTypes: true });
+    for (const entry of entries) {
+        if (entry.isFile() && entry.name.endsWith(".js")) {
+            yield path.join(basePath, entry.name);
+        }
+        if (entry.isDirectory()) {
+            const indexPath = path.join(basePath, entry.name, "index.js");
+            if (fs.existsSync(indexPath)) {
+                yield indexPath;
+            }
+        }
+    }
+}
+
+for (const commandPath of iterCommandFiles(commandsPath)) {
+    const command = await import(pathToFileURL(commandPath).href);
     try {
         client.commands.set(command.data.name, command);
     } catch (error) {
@@ -39,9 +54,8 @@ for (const file of fs.readdirSync(eventsPath)) {
 
 /* 슬래시 커맨드 등록 */
 const commands = [];
-for (const file of fs.readdirSync(commandsPath)) {
-    if (!file.endsWith(".js")) continue;
-    const command = await import(pathToFileURL(path.join(commandsPath, file)).href);
+for (const commandPath of iterCommandFiles(commandsPath)) {
+    const command = await import(pathToFileURL(commandPath).href);
     try {
         commands.push(command.data.toJSON());
     } catch (error) {

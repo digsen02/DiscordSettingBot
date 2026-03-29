@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
-import * as syncConfigService from "../../../services/syncConfigService.js";
-import { getSession } from "../../../utils/sessionStore.js";
+import * as syncConfigService from "../../../../services/syncConfigService.js";
+import { getSession } from "../../../../utils/sessionStore.js";
 
 export default async function (interaction, sessionKey) {
     const session = getSession(sessionKey);

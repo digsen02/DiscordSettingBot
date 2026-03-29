@@ -1,5 +1,5 @@
 import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import { getSession } from "../../../../utils/sessionStore.js";
+import { getSession } from "../../../../../utils/sessionStore.js";
 
 const DEFAULT_USER_DETAIL_SETTINGS = {
     nickname: false,
@@ -16,7 +16,7 @@ function getOrInitUserSettings(session, userId) {
     }
     return session.userDetailSettings[userId];
 }
-
+예배 규칙서
 function enabledList(settings) {
     const enabled = [];
     if (settings.nickname) enabled.push("닉네임");
@@ -109,4 +109,3 @@ export default async function (interaction, sessionKeyWithUserId) {
 
     await interaction.update(payload);
 }
-

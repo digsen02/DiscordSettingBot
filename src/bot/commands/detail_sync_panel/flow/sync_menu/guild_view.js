@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
-import { getSession } from "../../../../utils/sessionStore.js";
-import { getSyncedGuilds } from "../../../../services/syncConfigService.js";
+import { getSession } from "../../../../../utils/sessionStore.js";
+import { getSyncedGuilds } from "../../../../../services/syncConfigService.js";
 
 const STATUS_LABEL = {
     active: "🟢 활성",

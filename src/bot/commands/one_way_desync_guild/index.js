@@ -1,12 +1,9 @@
 import {
     SlashCommandBuilder,
-    ActionRowBuilder,
-    ButtonStyle,
     PermissionFlagsBits,
     EmbedBuilder,
-    ButtonBuilder,
 } from "discord.js";
-import * as syncConfigService from "../../services/syncConfigService.js";
+import * as syncConfigService from "../../../services/syncConfigService.js";
 
 export const data = new SlashCommandBuilder()
     .setName("one_way_desync_guild")
